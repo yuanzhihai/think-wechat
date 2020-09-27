@@ -73,6 +73,32 @@ $officialAccount = Facade::officialAccount('test'); // 公众号
 ```php
 $officialAccount = Facade::officialAccount('',$config); // 公众号
 ```
+### Oauth登录中间件(ThinkPHP6.0+)
+使用中间件情况下，config的oauth.callback可以随便写~，反正是直接获取了当前URL
+```php
+\think\facade\Route::rule('user','wechat/user')->middleware(\yzh52521\ThinkWechat\Middleware\OauthMiddleware::class);
+```
+
+上面的路由定义了 /user 是需要微信授权的，那么在这条路由的回调 或 控制器对应的方法里， 你就可以从 session('wechat_oauth_user_default') 拿到已经授权的用户信息了。
+
+
+关于ThinkPHP6.0的中间件使用方法不在叙述，详情可以查看[官方文档](https://www.kancloud.cn/manual/thinkphp6_0/1037493)
+
+#### 中间件参数说明
+由于ThinkPHP中间件只支持一个参数，所以以`:`做分割
+
+支持传入account账号别名以及scope类型
+
+若不传入`account`，会使用`default`账号
+
+若不传入`scope`，会使用配置文件中的`oauth.scope`
+
+支持一下两种方式
+```
+default:snsapi_base
+snsapi_base
+```
+
 
 更多 SDK 的具体使用请参考：[https://easywechat.com](https://easywechat.com)
 
