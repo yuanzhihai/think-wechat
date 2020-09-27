@@ -29,9 +29,9 @@ composer require yzh52521/think-wechat
 namespace app\index\controller;
 
 
-use think\Controller;
+use app\BaseController;
 
-class Wechat extends Controller
+class Wechat extends BaseController
 {
 
     public function index()
