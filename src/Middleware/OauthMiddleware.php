@@ -1,6 +1,6 @@
 <?php
 /**
- * 登录中间件
+ * oauth登录中间件
  *
  * @author yzh52521<396751927@qq.com>
  * @copyright  yzh52521
