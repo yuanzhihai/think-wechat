@@ -1,15 +1,15 @@
 # think-wechat
 
-微信SDK For ThinkPHP 5.1, ThinkPHP 6.0 基于[overtrue/wechat](https://github.com/overtrue/wechat)
+微信SDK For  ThinkPHP 6.0 基于[overtrue/wechat](https://github.com/overtrue/wechat)
 
 ## 框架要求
 
-ThinkPHP >= 5.1
+ThinkPHP >= 6.0
 
 ## 安装
 
 ```bash
-composer require hectorqin/think-wechat
+composer require yzh52521/think-wechat
 ```
 
 ## 配置
@@ -51,7 +51,7 @@ class Wechat extends Controller
 #### 使用facade
 
 ```php
-use Hectorqin\ThinkWechat\Facade;
+use yzh52521\ThinkWechat\Facade;
 
 $officialAccount = Facade::officialAccount();  // 公众号
 $work = Facade::work(); // 企业微信
