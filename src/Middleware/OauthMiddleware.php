@@ -2,8 +2,8 @@
 /**
  * 登录中间件
  *
- * @author 耐小心<i@naixiaoxin.com>
- * @copyright 2017-2018 耐小心
+ * @author yzh52521<396751927@qq.com>
+ * @copyright  yzh52521
  */
 
 namespace yzh52521\ThinkWechat\Middleware;
