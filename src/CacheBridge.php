@@ -2,11 +2,11 @@
 /**
  * ThinkPHP微信缓存类
  *
- * @author hectorqin<hectorqin@163.com>
- * @copyright hectorqin
+ * @author yzh52521<396751927@qq.com>
+ * @copyright yzh52521
  */
 
-namespace Hectorqin\ThinkWechat;
+namespace yzh52521\ThinkWechat;
 
 use Psr\SimpleCache\CacheInterface;
 

@@ -1,10 +1,10 @@
 <?php
 /**
- * @author hectorqin<hectorqin@163.com>
- * @copyright hectorqin
+ * @author yzh52521<396751927@qq.com>
+ * @copyright yzh52521
  */
 
-namespace Hectorqin\ThinkWechat;
+namespace yzh52521\ThinkWechat;
 
 use Monolog\Handler\AbstractProcessingHandler;
 use think\facade\Log;
@@ -38,9 +38,4 @@ function injectThinkLoggerToWechatApp($app)
             });
         }
     };
-}
-
-// 兼容TP5
-if (version_compare(\think\App::VERSION, '5.1.7', '>=') && version_compare(\think\App::VERSION, '6.0.0', '<')) {
-    \think\facade\Event::listen('app_init', \Hectorqin\ThinkWechat\Behavior\AppInit::class);
 }

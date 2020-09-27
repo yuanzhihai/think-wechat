@@ -1,6 +1,5 @@
 <?php
-
-namespace Hectorqin\ThinkWechat;
+namespace yzh52521\ThinkWechat;
 
 use EasyWeChat\MicroMerchant\Application as MicroMerchant;
 use EasyWeChat\MiniProgram\Application as MiniProgram;
@@ -12,7 +11,7 @@ use EasyWeChat\Work\Application as Work;
 use Hectorqin\ThinkWechat\CacheBridge;
 use think\Service;
 
-class ThinkWechatService extends Service
+class WechatService extends Service
 {
 
     /*
@@ -39,7 +38,7 @@ class ThinkWechatService extends Service
             }
             $configs = config('wechat.' . $name);
             foreach ($configs as $config_name => $module_default) {
-                bind('wechat.' . $name . '.' . $config_name, function ($config = []) use ($app, $module_default, $wechat_default) {
+                $this->app->bind('wechat.' . $name . '.' . $config_name, function ($config = []) use ($app, $module_default, $wechat_default) {
                     //合并配置文件
                     $account_config = array_merge($module_default, $wechat_default, $config);
                     if (config('wechat.inject_think_logger')) {
@@ -53,7 +52,7 @@ class ThinkWechatService extends Service
                 });
             }
             if (isset($configs['default'])) {
-                bind('wechat.' . $name, 'wechat.' . $name . '.default');
+                $this->app->bind('wechat.' . $name, 'wechat.' . $name . '.default');
             }
         }
     }
