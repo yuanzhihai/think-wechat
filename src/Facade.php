@@ -26,7 +26,7 @@ class Facade extends ThinkFacade
     }
 
     /**
-     * @return \EasyWeChat\OfficialAccount\Application
+     * @return \EasyWeChat\OfficialAccount\Application|object|\think\App
      */
     public static function officialAccount($name = '',$config = [])
     {
@@ -36,7 +36,7 @@ class Facade extends ThinkFacade
     }
 
     /**
-     * @return \EasyWeChat\Work\Application
+     * @return \EasyWeChat\Work\Application|object|\think\App
      */
     public static function work($name = '',$config = [])
     {
@@ -46,7 +46,7 @@ class Facade extends ThinkFacade
     }
 
     /**
-     * @return \EasyWeChat\Payment\Application
+     * @return \EasyWeChat\Payment\Application|object|\think\App
      */
     public static function payment($name = '',$config = [])
     {
@@ -56,7 +56,7 @@ class Facade extends ThinkFacade
     }
 
     /**
-     * @return \EasyWeChat\MiniProgram\Application
+     * @return \EasyWeChat\MiniProgram\Application|object|\think\App
      */
     public static function miniProgram($name = '',$config = [])
     {
@@ -66,7 +66,7 @@ class Facade extends ThinkFacade
     }
 
     /**
-     * @return \EasyWeChat\OpenPlatform\Application
+     * @return \EasyWeChat\OpenPlatform\Application|object|\think\App
      */
     public static function openPlatform($name = '',$config = [])
     {
@@ -77,7 +77,7 @@ class Facade extends ThinkFacade
 
 
     /**
-     * @return \EasyWeChat\OpenWork\Application
+     * @return \EasyWeChat\OpenWork\Application|object|\think\App
      */
     public static function openWork($name = '',$config = [])
     {
@@ -87,7 +87,7 @@ class Facade extends ThinkFacade
     }
 
     /**
-     * @return \EasyWeChat\MicroMerchant\Application
+     * @return \EasyWeChat\MicroMerchant\Application|object|\think\App
      */
     public static function microMerchant($name = '',$config = [])
     {

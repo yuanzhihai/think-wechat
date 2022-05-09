@@ -8,7 +8,6 @@ use EasyWeChat\OpenPlatform\Application as OpenPlatform;
 use EasyWeChat\OpenWork\Application as OpenWork;
 use EasyWeChat\Payment\Application as Payment;
 use EasyWeChat\Work\Application as Work;
-use Hectorqin\ThinkWechat\CacheBridge;
 use think\Service;
 
 class WechatService extends Service
