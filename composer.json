@@ -9,7 +9,7 @@
         "psr/simple-cache": "^1.0"
     },
     "require-dev": {
-        "topthink/framework":"^6",
+        "topthink/framework":"^6.0",
         "monolog/monolog": "^2.0"
     },
     "license": "MIT",
