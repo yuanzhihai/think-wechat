@@ -9,14 +9,14 @@
 namespace yzh52521\ThinkWechat;
 
 use Psr\SimpleCache\CacheInterface;
-
+use think\Cache;
 class CacheBridge implements CacheInterface
 {
     protected $cache = null;
 
-    public function __construct()
+    public function __construct(Cache $cache)
     {
-        $this->cache = app('cache');
+        $this->cache = $cache;
     }
 
     public function get($key, $default = null)

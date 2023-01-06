@@ -9,6 +9,7 @@
 namespace yzh52521\ThinkWechat\Middleware;
 
 use EasyWeChat\OfficialAccount\Application;
+use think\facade\Event;
 use think\facade\Log;
 use think\Request;
 use think\facade\Session;
@@ -19,44 +20,54 @@ class OauthMiddleware
     /**
      * 执行中间件
      *
-     * @param Request  $request
+     * @param Request $request
      * @param \Closure $next
-     * @param null     $param
+     * @param null $param
      * @return mixed|\think\response\Redirect
      */
-    public function handle(Request $request, \Closure $next, $param = null)
+    public function handle(Request $request,\Closure $next,$param = null)
     {
 
-        $params  = $this->getParam($param);
+        $params  = $this->getParam( $param );
         $account = $params["account"];
         $scopes  = $params["scopes"];
         //定义session
-        $session_key = 'wechat_oauth_user_' . $account;
-        $session     = Session::get($session_key);
+        $session_key = 'wechat_oauth_user_'.$account;
+        $session     = Session::get( $session_key );
         /** @var Application $officialAccount */
-        $officialAccount = app(sprintf('wechat.official_account.%s', $account));
+        $officialAccount = app( sprintf( 'wechat.official_account.%s',$account ) );
         if (!$scopes) {
-            $scopes = config(sprintf('wechat.official_account.%s.oauth.scopes', $account));
+            $scopes = config( sprintf( 'wechat.official_account.%s.oauth.scopes',$account ) );
         }
-        if (!$scopes){
+        if (!$scopes) {
             $scopes = ['snsapi_base'];
         }
-        if (is_string($scopes)) {
-            $scopes = array_map('trim', explode(',', $scopes));
+        if (is_string( $scopes )) {
+            $scopes = array_map( 'trim',explode( ',',$scopes ) );
         }
-        Log::info(json_encode($session));
+        Log::info( json_encode( $session ) );
         if (!$session) {
-            if ($request->get('code')) {
+            if ($request->get( 'code' )) {
                 $session = $officialAccount->oauth->user();
-                Session::set($session_key, $session);
+                Session::set( $session_key,$session );
+                Event::trigger( 'oauth',[
+                    'user'   => $session,
+                    'type'   => 'official_account',
+                    'is_new' => true,
+                ] );
                 //跳转到登录
-                Log::info($this->getTargetUrl($request));
-                return redirect($this->getTargetUrl($request));
+                Log::info( $this->getTargetUrl( $request ) );
+                return redirect( $this->getTargetUrl( $request ) );
             }
-            $url = $officialAccount->oauth->scopes($scopes)->redirect($request->url(true))->getTargetUrl();
-            return redirect($url);
+            $url = $officialAccount->oauth->scopes( $scopes )->redirect( $request->url( true ) );
+            return redirect( $url );
         }
-        return $next($request);
+        Event::trigger( 'oauth',[
+            'user'   => $session,
+            'type'   => 'official_account',
+            'is_new' => false,
+        ] );
+        return $next( $request );
     }
 
 
@@ -73,17 +84,17 @@ class OauthMiddleware
             return $res;
         }
         //解析
-        $result  = explode(":", $params);
+        $result  = explode( ":",$params );
         $account = "";
         $scopes  = "";
-        if (isset($result[0])) {
+        if (isset( $result[0] )) {
             $account = $result[0];
         }
-        if (isset($result[1])) {
+        if (isset( $result[1] )) {
             $scopes = $result[1];
         }
         if ($account) {
-            if (strpos($account, "sns") !== false) {
+            if (strpos( $account,"sns" ) !== false) {
                 $res["scopes"] = $account;
             } else {
                 $res["account"] = $account;
@@ -105,12 +116,12 @@ class OauthMiddleware
     protected function getTargetUrl($request)
     {
         $param = $request->get();
-        if (isset($param['code'])) {
-            unset($param['code']);
+        if (isset( $param['code'] )) {
+            unset( $param['code'] );
         }
-        if (isset($param['state'])) {
-            unset($param['state']);
+        if (isset( $param['state'] )) {
+            unset( $param['state'] );
         }
-        return $request->baseUrl() . (empty($param) ? '' : '?' . http_build_query($param));
+        return $request->baseUrl().( empty( $param ) ? '' : '?'.http_build_query( $param ) );
     }
 }
